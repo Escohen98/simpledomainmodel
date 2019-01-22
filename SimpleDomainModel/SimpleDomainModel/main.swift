@@ -8,7 +8,7 @@
 
 import Foundation
 
-print("Hello, World!")
+print("Hello, World")
 
 public func testMe() -> String {
   return "I have been tested"
@@ -34,37 +34,37 @@ public struct Money {
   public var amount : Int
   public var currency : String
   
-  public init?(amount : Int, currency: String) {
-        if(currency != "USD" || currency != "GBP" || currency != "EUR" || currency != "CAN") {
+  /*public init?(amount : Int, currency: String) {
+        if(currency = "USD" || currency = "GBP" || currency = "EUR" || currency = "CAN") {
             return nil
         }
         self.currency = currency
         self.amount = amount
-    }
+    }*/
     
   public func convert(_ to: String) -> Money {
     if(currency == "USD") {
         switch to {
             case "USD":
-                return Money(amount: amount, currency: currency)!
+                return self
             case "GBP":
-                return Money(amount: amount / 2, currency: to)!
+                return Money(amount: amount / 2, currency: to)
             case "EUR":
-                return Money(amount: 3 * amount / 2, currency: to)!
+                return Money(amount: 3 * amount / 2, currency: to)
             case "CAN":
-                return Money(amount: 5 * amount * 4, currency: to)!
+                return Money(amount: 5 * amount * 4, currency: to)
             default:
                 print("Invalid Currency \(to). Valid Currencies: USD, GBP, EUR, CAN")
-                break
+                return self
         }
     } else if(currency == "GBP") {
-        return (Money(amount: amount * 2, currency: "USD")!.convert(to))
+        return (Money(amount: amount * 2, currency: "USD").convert(to))
     } else if(currency == "EUR") {
-        return (Money(amount: amount * 2/3, currency: "USD")!.convert(to))
+        return (Money(amount: amount * 2/3, currency: "USD").convert(to))
     } else if(currency == "CAN") {
-        return (Money(amount: amount * 4/5, currency: "USD")!.convert(to))
+        return (Money(amount: amount * 4/5, currency: "USD").convert(to))
     } else {
-        print("Something went wrong.")
+        print(print("Invalid Currency \(currency). Valid Currencies: USD, GBP, EUR, CAN"))
     }
     return self
   }
@@ -77,9 +77,9 @@ public struct Money {
     */
   public func add(_ to: Money) -> Money {
     if(to.currency == currency) {
-        return Money(amount: amount+to.amount, currency: currency)!
+        return Money(amount: amount+to.amount, currency: currency)
     }
-    return Money(amount: amount - to.convert(currency).amount, currency: currency)!
+    return Money(amount: amount - to.convert(currency).amount, currency: currency)
   }
     
     /*
@@ -91,9 +91,9 @@ public struct Money {
      */
   public func subtract(_ from: Money) -> Money {
     if(from.currency == currency) {
-        return Money(amount: amount - from.amount, currency: currency)!
+        return Money(amount: amount - from.amount, currency: currency)
     }
-    return Money(amount: amount - from.convert(currency).amount, currency: currency)!
+    return Money(amount: amount - from.convert(currency).amount, currency: currency)
   }
 }
 
@@ -115,10 +115,21 @@ open class Job {
   }
   
   open func calculateIncome(_ hours: Int) -> Int {
-    
+    switch type {
+    case .Hourly (let wage):
+        return Int(wage * Double(hours) / 2000.0)
+    case .Salary (let wage):
+        return wage
+    }
   }
   
   open func raise(_ amt : Double) {
+    switch type {
+    case .Hourly (var wage):
+        wage += amt
+    case .Salary (var wage):
+        wage += Int(amt)
+    }
   }
 }
 
@@ -132,15 +143,21 @@ open class Person {
 
   fileprivate var _job : Job? = nil
   open var job : Job? {
-    get { }
+    get {
+        return _job
+    }
     set(value) {
+        _job = value
     }
   }
-  
+        
   fileprivate var _spouse : Person? = nil
   open var spouse : Person? {
-    get { }
+    get {
+         return _spouse
+    }
     set(value) {
+        _spouse = value
     }
   }
   
@@ -151,6 +168,7 @@ open class Person {
   }
   
   open func toString() -> String {
+    return "[Person: firstName: \(firstName) lastName: \(lastName) age: \(age) Salary(\(job.get())) Spouse: \(spouse.get().firstName)]"
   }
 }
 
