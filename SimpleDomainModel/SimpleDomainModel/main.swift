@@ -24,15 +24,70 @@ open class TestMe {
 // Money
 //
 public struct Money {
+    /*Acceptable currencies:
+     1 USD = .5 GBP / 2 USD = 1 GBP
+     
+     1 USD = 1.5 EUR / 2 USD = 3 EUR
+     
+     1 USD = 1.25 CAN / 4 USD = 5 CAN
+     */
   public var amount : Int
   public var currency : String
   
+    
+    
   public func convert(_ to: String) -> Money {
+    if(currency == "USD") {
+        switch to {
+            case "USD":
+                return Money(amount: amount, currency: currency)
+            case "GBP":
+                return Money(amount: amount / 2, currency: to)
+            case "EUR":
+                return Money(amount: 3 * amount / 2, currency: to)
+            case "CAN":
+                return Money(amount: 5 * amount * 4, currency: to)
+            default:
+                print("Invalid Currency \(to). Valid Currencies: USD, GBP, EUR, CAN")
+                break
+        }
+    } else if(currency == "GBP") {
+        return Money(amount: amount * 2, currency: "USD").convert(to)
+    } else if(currency == "EUR") {
+        return Money(amount: amount * 2/3, currency: "USD").convert(to)
+    } else if(currency == "CAN") {
+        return Money(amount: amount * 4/5, currency: "USD").convert(to)
+    } else {
+        print("Something went wrong.")
+    }
+    return self
   }
   
+    /*
+    * Adds the amount of two Money objects. If the money currencies objects are not equal,
+    * converts the second object into the currency of the first object. Returns a Money
+    * object of the result.
+    * to (Money) - A Money object containing the currency to be added.
+    */
   public func add(_ to: Money) -> Money {
+    if(to.currency == currency) {
+        return Money(amount: amount+to.amount, currency: currency)
+    }
+    return Money(amount: amount - to.convert(currency).amount, currency: currency)
   }
+    
+    /*
+     * Subtracts the amount of to from the Money object. If the money currencies objects are
+     * not equal,
+     * converts the second object into the currency of the first object. Returns a Money
+     * object of the result.
+     * from (Money) - A Money object containing the currency to be used to subtract.
+     */
   public func subtract(_ from: Money) -> Money {
+    if(from.currency == currency) {
+        return Money(amount: amount - from.amount, currency: currency)
+    }
+    return Money(amount: amount - from.convert(currency).amount, currency: currency)
   }
 }
 
