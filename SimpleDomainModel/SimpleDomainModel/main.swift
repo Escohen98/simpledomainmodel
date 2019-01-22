@@ -34,29 +34,35 @@ public struct Money {
   public var amount : Int
   public var currency : String
   
-    
+  public init?(amount : Int, currency: String) {
+        if(currency != "USD" || currency != "GBP" || currency != "EUR" || currency != "CAN") {
+            return nil
+        }
+        self.currency = currency
+        self.amount = amount
+    }
     
   public func convert(_ to: String) -> Money {
     if(currency == "USD") {
         switch to {
             case "USD":
-                return Money(amount: amount, currency: currency)
+                return Money(amount: amount, currency: currency)!
             case "GBP":
-                return Money(amount: amount / 2, currency: to)
+                return Money(amount: amount / 2, currency: to)!
             case "EUR":
-                return Money(amount: 3 * amount / 2, currency: to)
+                return Money(amount: 3 * amount / 2, currency: to)!
             case "CAN":
-                return Money(amount: 5 * amount * 4, currency: to)
+                return Money(amount: 5 * amount * 4, currency: to)!
             default:
                 print("Invalid Currency \(to). Valid Currencies: USD, GBP, EUR, CAN")
                 break
         }
     } else if(currency == "GBP") {
-        return Money(amount: amount * 2, currency: "USD").convert(to)
+        return (Money(amount: amount * 2, currency: "USD")!.convert(to))
     } else if(currency == "EUR") {
-        return Money(amount: amount * 2/3, currency: "USD").convert(to)
+        return (Money(amount: amount * 2/3, currency: "USD")!.convert(to))
     } else if(currency == "CAN") {
-        return Money(amount: amount * 4/5, currency: "USD").convert(to)
+        return (Money(amount: amount * 4/5, currency: "USD")!.convert(to))
     } else {
         print("Something went wrong.")
     }
@@ -71,9 +77,9 @@ public struct Money {
     */
   public func add(_ to: Money) -> Money {
     if(to.currency == currency) {
-        return Money(amount: amount+to.amount, currency: currency)
+        return Money(amount: amount+to.amount, currency: currency)!
     }
-    return Money(amount: amount - to.convert(currency).amount, currency: currency)
+    return Money(amount: amount - to.convert(currency).amount, currency: currency)!
   }
     
     /*
@@ -85,9 +91,9 @@ public struct Money {
      */
   public func subtract(_ from: Money) -> Money {
     if(from.currency == currency) {
-        return Money(amount: amount - from.amount, currency: currency)
+        return Money(amount: amount - from.amount, currency: currency)!
     }
-    return Money(amount: amount - from.convert(currency).amount, currency: currency)
+    return Money(amount: amount - from.convert(currency).amount, currency: currency)!
   }
 }
 
@@ -104,9 +110,12 @@ open class Job {
   }
   
   public init(title : String, type : JobType) {
+    self.title = title
+    self.type = type
   }
   
   open func calculateIncome(_ hours: Int) -> Int {
+    
   }
   
   open func raise(_ amt : Double) {
