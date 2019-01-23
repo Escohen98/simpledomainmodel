@@ -28,6 +28,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		49F7269821F7F912002F4F66 /* SimpleDomainModel */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SimpleDomainModel; sourceTree = "<group>"; };
+		49F7269A21F7F924002F4F66 /* SimpleDomainModelTests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SimpleDomainModelTests; sourceTree = "<group>"; };
+		49F7269C21F7F935002F4F66 /* SimpleDomainModel */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SimpleDomainModel; sourceTree = "<group>"; };
 		FE6891141CB5D8E40018C340 /* SimpleDomainModel */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SimpleDomainModel; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6891171CB5D8E40018C340 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		FE6891221CB5D90B0018C340 /* SimpleDomainModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleDomainModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,12 +59,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		49F7269721F7F911002F4F66 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				49F7269C21F7F935002F4F66 /* SimpleDomainModel */,
+				49F7269A21F7F924002F4F66 /* SimpleDomainModelTests */,
+				49F7269821F7F912002F4F66 /* SimpleDomainModel */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FE68910B1CB5D8E40018C340 = {
 			isa = PBXGroup;
 			children = (
 				FE6891161CB5D8E40018C340 /* SimpleDomainModel */,
 				FE6891231CB5D90B0018C340 /* SimpleDomainModelTests */,
 				FE6891151CB5D8E40018C340 /* Products */,
+				49F7269721F7F911002F4F66 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

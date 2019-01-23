@@ -117,7 +117,7 @@ open class Job {
   open func calculateIncome(_ hours: Int) -> Int {
     switch type {
     case .Hourly (let wage):
-        return Int(wage * Double(hours) / 2000.0)
+        return Int(wage * Double(hours))
     case .Salary (let wage):
         return wage
     }
@@ -125,10 +125,10 @@ open class Job {
   
   open func raise(_ amt : Double) {
     switch type {
-    case .Hourly (var wage):
-        wage += amt
-    case .Salary (var wage):
-        wage += Int(amt)
+    case .Hourly (let wage):
+        self.type = Job.JobType.Hourly(wage + amt)
+    case .Salary (let wage):
+        self.type = Job.JobType.Salary(wage + Int(amt))
     }
   }
 }
