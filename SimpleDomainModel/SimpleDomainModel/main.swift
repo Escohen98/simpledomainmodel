@@ -52,7 +52,7 @@ public struct Money {
             case "EUR":
                 return Money(amount: 3 * amount / 2, currency: to)
             case "CAN":
-                return Money(amount: 5 * amount * 4, currency: to)
+                return Money(amount: amount * 5/4, currency: to)
             default:
                 print("Invalid Currency \(to). Valid Currencies: USD, GBP, EUR, CAN")
                 return self
