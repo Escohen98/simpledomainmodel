@@ -79,7 +79,7 @@ public struct Money {
     if(to.currency == currency) {
         return Money(amount: amount+to.amount, currency: currency)
     }
-    return Money(amount: self.convert(currency).amount + to.amount, currency: to.currency)
+    return Money(amount: self.convert(to.currency).amount + to.amount, currency: to.currency)
   }
     
     /*
@@ -147,7 +147,9 @@ open class Person {
         return _job
     }
     set(value) {
-        _job = value
+        if(age > 18) {
+            _job = value
+        }
     }
   }
     
@@ -157,7 +159,9 @@ open class Person {
          return _spouse
     }
     set(value) {
-        _spouse = value
+        if(age > 18) {
+            _spouse = value
+        }
     }
   }
   
