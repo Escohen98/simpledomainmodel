@@ -79,7 +79,7 @@ public struct Money {
     if(to.currency == currency) {
         return Money(amount: amount+to.amount, currency: currency)
     }
-    return Money(amount: amount - to.convert(currency).amount, currency: currency)
+    return Money(amount: self.convert(currency).amount + to.amount, currency: to.currency)
   }
     
     /*
@@ -93,7 +93,7 @@ public struct Money {
     if(from.currency == currency) {
         return Money(amount: amount - from.amount, currency: currency)
     }
-    return Money(amount: amount - from.convert(currency).amount, currency: currency)
+    return Money(amount: self.convert(currency).amount - from.amount, currency: from.currency)
   }
 }
 
@@ -166,9 +166,9 @@ open class Person {
     self.lastName = lastName
     self.age = age
   }
-  let base = "Single"
+    //    XCTAssert(ted.toString() == "[Person: firstName:Ted lastName:Neward age:45 job:nil spouse:nil]")
   open func toString() -> String {
-    return "[Person: firstName: \(firstName) lastName: \(lastName) age: \(age) Salary(\(job?.calculateIncome(2000) ?? 0)) Spouse: \(spouse?.firstName ?? base)]"
+    return "[Person: firstName:\(firstName) lastName:\(lastName) age:\(age) job:\(job?.title ?? nil) spouse:\(spouse?.firstName)]"
   }
 }
 
